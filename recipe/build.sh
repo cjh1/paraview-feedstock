@@ -53,10 +53,11 @@ cmake -LAH ${CMAKE_ARGS} \
   -DVTK_MODULE_USE_EXTERNAL_VTK_cli11=OFF \
   -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF \
   -DVTK_MODULE_USE_EXTERNAL_ParaView_vtkcatalyst=OFF \
+  -DVTK_MODULE_USE_EXTERNAL_VTK_verdict=OFF \
   -DPARAVIEW_ENABLE_WEB=ON \
   -DPARAVIEW_ENABLE_VISITBRIDGE=ON \
   -DPARAVIEW_ENABLE_XDMF3=ON \
-  ..
+  ../paraview
 make install -j${CPU_COUNT}
 
 if test `uname` = "Darwin"; then

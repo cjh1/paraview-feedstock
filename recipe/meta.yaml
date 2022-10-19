@@ -1,14 +1,36 @@
-{% set version = "5.10.1" %}
-{% set maj_min = ".".join(version.split(".")[:2]) %}
-{% set build_num = 8 %}
+{% set version = "5.10.2.post1892" %}
+{% set paraview_sha = "1c7b7e45502ac4846a6a1a5c5baa5226919e776b" %}
+{% set vtk_sha = "f32773b9ecb357080efc3dbd2df1756dea80081d" %}
+{% set vtk_visit_bridge_sha = "df098f4148a96d62c388861c1d476039e02224ae" %}
+{% set vtk_qt_testing_sha = "d87ac3dc941d5f118ce6e18cc744ebbc4f91ff28" %}
+{% set build_num = 0 %}
 
 package:
   name: paraview
   version: {{ version }}
 
 source:
-  url: https://paraview.org/files/v{{ maj_min }}/ParaView-v{{ version }}.tar.xz
-  md5: 0e1463ef95b4661b90e2ef4ea3c5182f
+  - url: https://gitlab.kitware.com/paraview/paraview/-/archive/{{ paraview_sha }}/{{ paraview_sha }}.tar.gz
+    sha256: 719d81e85dc64455b5db9b11433142263fc1a721cca140296188a0b4d99f17e7
+    folder: paraview
+
+  # Download the submodules manually!
+  - url: https://gitlab.kitware.com/vtk/vtk/-/archive/{{ vtk_sha }}/{{ vtk_sha }}.tar.gz
+    sha256: 0f613a83c47a57a8fbdf229b90267701ffc3d855816b1b048fdbdd7010dd43fd
+    folder: paraview/VTK
+
+  - url: https://gitlab.kitware.com/paraview/visitbridge/-/archive/{{ vtk_visit_bridge_sha }}/{{ vtk_visit_bridge_sha }}.tar.gz
+    sha256: bb2576b7d612fe63029f0db21da82b804d7505d3067b11d090f75cad595b608f
+    folder: paraview/Utilities/VisItBridge
+
+  - url: https://gitlab.kitware.com/paraview/qttesting/-/archive/{{ vtk_qt_testing_sha }}/{{ vtk_qt_testing_sha }}.tar.gz
+    sha256: d6e6b292c7fd9e51c02c30a561af6d2bbd5748115376ed08269e3d04f79a43c9
+    folder: paraview/ThirdParty/QtTesting/vtkqttesting
+
+# - url: https://gitlab.kitware.com/paraview/paraview/-/archive/{{ paraview_sha }}/{{ paraview_sha }}.tar.gz
+#   sha256: f2db9f032b48033948679bc4d13a29c6b554bd9e0a435c1805c429818b5207bb
+#   folder: paraview/ThirdParty/catalyst/vtkcatalyst/catalyst
+
 
 {% if build_variant == "qt" %}
 {% set build_num = build_num + 100 %}
@@ -32,6 +54,7 @@ requirements:
     - pkg-config
     - make  # [unix]
     - ninja  # [win]
+    - nlohmann_json
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}  # [build_variant == "egl"]
@@ -97,6 +120,8 @@ requirements:
     - libcurl
     - icu
     - eigen
+    - nlohmann_json
+    - proj
   run:
     - python
     - numpy
@@ -126,7 +151,7 @@ about:
   home: http://www.paraview.org
   license: BSD-3-Clause
   license_family: BSD
-  license_file: Copyright.txt
+  license_file: paraview/Copyright.txt
   summary: ParaView is an open-source, multi-platform data analysis and visualization application based on Visualization Toolkit (VTK).
 
 extra:
