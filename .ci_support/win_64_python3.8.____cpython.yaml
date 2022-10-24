@@ -7,7 +7,7 @@ c_compiler:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge paraview_dev
 cxx_compiler:
 - vs2019
 expat:
@@ -37,7 +37,7 @@ libprotobuf:
 libtiff:
 - '4'
 libxml2:
-- '2.9'
+- '2.10'
 libzip:
 - '1'
 lz4_c:
@@ -45,33 +45,11 @@ lz4_c:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  freetype:
-    max_pin: x
-  glew:
-    max_pin: x.x
-  hdf4:
-    max_pin: x.x
-  jpeg:
-    max_pin: x
-  jsoncpp:
-    max_pin: x.x.x
-  libcurl:
-    max_pin: x
-  libpng:
-    max_pin: x.x
-  libtiff:
-    max_pin: x
-  libxml2:
-    max_pin: x.x
   python:
     min_pin: x.x
     max_pin: x.x
-  qt:
-    max_pin: x.x
-  xz:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
+proj:
+- 9.0.1
 python:
 - 3.8.* *_cpython
 qt:
@@ -80,7 +58,9 @@ qt_main:
 - '5.15'
 target_platform:
 - win-64
+vtk:
+- 9.1.0
 xz:
-- '5.2'
+- '5'
 zlib:
 - '1.2'
